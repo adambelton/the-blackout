@@ -1,0 +1,48 @@
+{
+  "name": "@blackout/server",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "tsx src/db/migrate.ts && tsx src/db/check.ts",
+    "dev": "tsx watch --tsconfig tsconfig.json src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:check": "tsx src/db/check.ts",
+    "db:reset": "tsx src/db/reset.ts",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "tsx src/db/seed.ts",
+    "pretest": "tsx --import ./tests/test-env.ts src/db/migrate.ts && tsx --import ./tests/test-env.ts src/db/check.ts",
+    "test": "tsx --import ./tests/test-env.ts --test --test-concurrency=1 --experimental-test-module-mocks tests/**/*.test.ts",
+    "eval:distiller": "tsx manual/distiller-eval/run.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
+    "@aws-sdk/client-s3": "^3.1115.0",
+    "@aws-sdk/s3-request-presigner": "^3.1115.0",
+    "@blackout/auth": "workspace:*",
+    "@blackout/shared": "workspace:*",
+    "@deepgram/sdk": "^5.0.0",
+    "@hono/node-server": "^1.19.15",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.13.3",
+    "music-metadata": "^11.12.3",
+    "postgres": "^3.4.9",
+    "posthog-node": "^5.29.5",
+    "replicate": "^1.4.0",
+    "ws": "^8.21.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/ws": "^8",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
+}

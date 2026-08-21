@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+/* Admin app is utilitarian — daisyui default theme tokens carry the look.
+ * No brand palette, no custom colours. If a design decision feels like
+ * "let me make this pretty," pause. (Per apps/kairos/client/CLAUDE.md.) */

@@ -1,0 +1,1 @@
+ALTER TABLE "broadcast_narrations" ADD COLUMN "covers" jsonb DEFAULT '[]'::jsonb NOT NULL;

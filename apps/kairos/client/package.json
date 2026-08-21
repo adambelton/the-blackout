@@ -1,0 +1,36 @@
+{
+  "name": "@kairos/client",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start --port 3001",
+    "clean": "rm -rf .next",
+    "test": "vitest run",
+    "create-user": "tsx --env-file=.env scripts/create-user.ts"
+  },
+  "dependencies": {
+    "@kairos/auth": "workspace:*",
+    "better-auth": "^1.7.1",
+    "drizzle-orm": "^0.45.2",
+    "lucide-react": "^0.473.0",
+    "next": "16.3.2",
+    "postgres": "^3.4.9",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "daisyui": "^5.0.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5",
+    "vitest": "^4.1.11"
+  }
+}

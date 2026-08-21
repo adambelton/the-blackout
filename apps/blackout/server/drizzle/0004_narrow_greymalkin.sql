@@ -1,0 +1,1 @@
+ALTER TABLE "notify_signups" ADD COLUMN "signup_ip" text;

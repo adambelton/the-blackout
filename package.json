@@ -1,0 +1,25 @@
+{
+  "name": "the-blackout",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "pnpm --filter @blackout/shared test && pnpm --filter @kairos/server test && pnpm --filter @blackout/server test && pnpm --filter @blackout/client test",
+    "clean": "turbo clean"
+  },
+  "devDependencies": {
+    "turbo": "^2"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "pnpm": {
+    "overrides": {
+      "esbuild": "0.28.1",
+      "vite": "8.0.16"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

@@ -1,0 +1,95 @@
+# CI — type-check + tests on every PR to main (and on pushes to main).
+#
+# The job name here is what you select as a required status check on the
+# `main` ruleset: add `CI / build-and-test` once this workflow has run at
+# least once on a PR (GitHub only lets you require a check it has seen).
+#
+# What's gated: `pnpm build` (tsc across @blackout/shared, @blackout/auth,
+# @kairos/server, @blackout/server + `next build` for @blackout/client, in
+# dependency order via turbo) and the test suites for all four packages.
+#
+# Test ordering matters: @kairos/server runs before @blackout/server
+# because the kairos suite's `pretest` migrates the `kairos_test` schema,
+# and the server suite's cross-app e2e test (`sportmonks-to-canonical-state.e2e`)
+# truncates + drives that same database. That e2e test injects a stub LLM
+# (`setRuntimeDependencies({ llm: new StubLLMClient([]) })`) so the in-process
+# Kairos makes zero real Anthropic calls — no API key is provided here.
+#
+# Postgres note: the kairos test suite hardcodes the connection string
+# `postgresql://localhost:5432/kairos_test` — no user, so the connecting
+# user defaults to the OS user (`runner` on a GitHub-hosted ubuntu runner).
+# We name the service's superuser `runner`, pre-create the `kairos_test`
+# database (via `POSTGRES_DB`), and create `blackout_test` in a setup step
+# afterwards. Both use `trust` auth so no password is needed.
+#
+# Job-level `DATABASE_URL` points at `blackout_test` (the blackout-server
+# suite's pretest migrates it, and its unit tests' lazy db-client
+# satisfies its module-load check). The cross-app e2e test
+# (`sportmonks-to-canonical-state.e2e`) force-overrides to `kairos_test`
+# inside the test file — it runs Kairos in-process and needs Kairos's
+# schema. `next build` (which has the auth route handler in its graph)
+# also reads `DATABASE_URL` + `BETTER_AUTH_SECRET` at module-load and
+# needs them present.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20 # the server suite alone is ~5min wall (a few tests exercise real timers); generous headroom over the ~8-10min whole-job norm
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: runner
+          POSTGRES_DB: kairos_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U runner -d kairos_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      DATABASE_URL: postgresql://runner@localhost:5432/blackout_test
+      KAIROS_DB_URL: postgresql://runner@localhost:5432/kairos_test
+      BETTER_AUTH_SECRET: ci-not-a-real-secret
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4 # version comes from `packageManager` in package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Create blackout_test database
+        # POSTGRES_DB on the service auto-creates `kairos_test`; the
+        # second DB has to be created explicitly. `psql` is preinstalled
+        # on ubuntu-latest runners.
+        run: PGPASSWORD= psql -h localhost -U runner -d kairos_test -c "CREATE DATABASE blackout_test"
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build — tsc across the workspace + next build (turbo)
+        run: pnpm build
+
+      - name: Test — @blackout/shared
+        run: pnpm --filter @blackout/shared test
+
+      - name: Test — @kairos/server
+        run: pnpm --filter @kairos/server test
+
+      - name: Test — @blackout/server # after @kairos/server: the e2e test drives the kairos_test DB the kairos suite migrated
+        run: pnpm --filter @blackout/server test
+
+      - name: Test — @blackout/client
+        run: pnpm --filter @blackout/client test

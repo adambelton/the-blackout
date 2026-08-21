@@ -1,0 +1,46 @@
+{
+  "name": "@kairos/server",
+  "version": "0.0.2",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "predev": "tsx src/db/migrate.ts && tsx src/db/check.ts",
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc && node scripts/copy-assets.mjs",
+    "start": "node dist/server.js",
+    "clean": "rm -rf dist",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:check": "tsx src/db/check.ts",
+    "db:reset": "tsx src/db/reset.ts",
+    "db:seed": "tsx src/db/seed.ts",
+    "db:studio": "drizzle-kit studio",
+    "eval:generation": "tsx manual/generation-eval/run.ts",
+    "eval:imagery": "tsx manual/imagery-eval/run.ts",
+    "eval:summary": "tsx manual/summary-eval/run.ts",
+    "eval:enrichment": "tsx manual/enrichment-eval/run.ts",
+    "eval:curation": "tsx manual/curation-eval/run.ts",
+    "pretest": "tsx --import ./tests/test-env.ts src/db/migrate.ts && tsx --import ./tests/test-env.ts src/db/check.ts && tsx --import ./tests/test-env.ts src/db/seed.ts",
+    "test": "tsx --import ./tests/test-env.ts --test --test-concurrency=1 tests/**/*.test.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
+    "@hono/node-server": "^1.19.15",
+    "@kairos/auth": "workspace:*",
+    "better-auth": "^1.7.1",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.13.3",
+    "postgres": "^3.4.9",
+    "posthog-node": "^5.29.5",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/ws": "^8",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
+}

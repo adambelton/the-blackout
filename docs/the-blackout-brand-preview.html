@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Blackout — Brand Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --umber:     #1F1A14;
+    --ivory:     #FDFAF4;
+    --forest:    #3A5432;
+    --sage:      #8FAE80;
+    --celadon:   #DDE4DC;
+    --driftwood: #9E8468;
+    --stone:     #72726C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #e8e8e8;
+    color: var(--umber);
+  }
+
+  /* ── Page shell ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--ivory);
+    margin: 32px auto;
+    padding: 18mm 16mm 16mm 16mm;
+    position: relative;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-content { flex: 1; }
+
+  .page-footer {
+    margin-top: auto;
+    padding-top: 8mm;
+    border-top: 0.5px solid var(--celadon);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .page-footer span {
+    font-size: 7pt;
+    color: var(--stone);
+    letter-spacing: 0.04em;
+  }
+  .page-footer span.right { color: var(--driftwood); }
+
+  .page-label {
+    position: absolute;
+    top: 10mm;
+    right: 16mm;
+    font-size: 7pt;
+    color: var(--stone);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    font-size: 20pt;
+    font-weight: 300;
+    color: var(--umber);
+    margin-bottom: 6mm;
+    padding-bottom: 4mm;
+    border-bottom: 0.5px solid var(--celadon);
+  }
+
+  .section-rule {
+    border: none;
+    border-top: 0.5px solid var(--celadon);
+    margin: 6mm 0;
+  }
+
+  .subsection-title {
+    font-size: 11pt;
+    font-weight: 500;
+    color: var(--umber);
+    margin-bottom: 4mm;
+  }
+
+  /* ════════════════════════════════
+     PAGE 1 — COVER
+  ════════════════════════════════ */
+  .cover {
+    padding-left: 0;
+    border-left: 8mm solid var(--forest);
+    padding-left: 10mm;
+  }
+
+  .cover-title-block {
+    margin-top: 20mm;
+    margin-bottom: 8mm;
+  }
+
+  .cover-the {
+    font-size: 13pt;
+    font-weight: 300;
+    color: var(--driftwood);
+    line-height: 1;
+    margin-bottom: 2mm;
+  }
+
+  .cover-blackout {
+    font-size: 72pt;
+    font-weight: 300;
+    color: var(--umber);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+
+  .cover-tagline {
+    font-size: 10pt;
+    font-weight: 400;
+    color: var(--driftwood);
+    line-height: 1.5;
+    margin-top: 8mm;
+  }
+
+  .cover-rule {
+    width: 38mm;
+    height: 0.5px;
+    background: var(--forest);
+    margin: 6mm 0;
+  }
+
+  .cover-body {
+    font-size: 10pt;
+    font-weight: 400;
+    color: var(--umber);
+    line-height: 1.7;
+  }
+
+  .cover-body p + p { margin-top: 4mm; }
+
+  .cover-domain {
+    font-size: 8pt;
+    color: var(--forest);
+    margin-top: auto;
+    padding-top: 6mm;
+  }
+
+  /* ════════════════════════════════
+     PAGE 2 — COLOUR PALETTE
+  ════════════════════════════════ */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5mm;
+    margin-bottom: 8mm;
+  }
+
+  .swatch-item {}
+
+  .swatch-chip {
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 3mm;
+  }
+
+  .swatch-chip.ivory-border { border: 0.5px solid var(--celadon); }
+
+  .swatch-name {
+    font-size: 8pt;
+    font-weight: 500;
+    color: var(--umber);
+    display: block;
+  }
+
+  .swatch-hex {
+    font-size: 7pt;
+    color: var(--stone);
+    display: block;
+    margin-top: 1mm;
+  }
+
+  .swatch-role {
+    font-size: 7pt;
+    color: var(--stone);
+    display: block;
+    margin-top: 1mm;
+  }
+
+  /* Usage chips */
+  .usage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+    margin-bottom: 6mm;
+  }
+
+  .usage-row {
+    display: flex;
+    align-items: center;
+    gap: 5mm;
+  }
+
+  .usage-chip {
+    width: 24mm;
+    height: 14mm;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
+    font-weight: 500;
+  }
+
+  .usage-chip.ivory-border { border: 0.5px solid var(--celadon); }
+
+  .usage-text {}
+
+  .usage-label {
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--umber);
+    display: block;
+  }
+
+  .usage-desc {
+    font-size: 8pt;
+    color: var(--stone);
+    display: block;
+    margin-top: 1mm;
+  }
+
+  /* Logo lockups */
+  .lockups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5mm;
+  }
+
+  .lockup-item {}
+
+  .lockup-card {
+    padding: 4mm;
+    height: 22mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2mm;
+  }
+
+  .lockup-card.ivory-border { border: 0.5px solid var(--celadon); }
+
+  .lockup-the {
+    font-size: 7pt;
+    font-weight: 300;
+  }
+
+  .lockup-blackout {
+    font-size: 16pt;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-top: 1mm;
+  }
+
+  .lockup-domain {
+    font-size: 6pt;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  .lockup-label {
+    font-size: 7pt;
+    color: var(--stone);
+  }
+
+  /* ════════════════════════════════
+     PAGE 3 — TYPOGRAPHY
+  ════════════════════════════════ */
+  .type-subtitle {
+    font-size: 9pt;
+    color: var(--stone);
+    margin-bottom: 6mm;
+  }
+
+  .specimen-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .specimen-row {
+    padding: 4mm 0;
+    border-bottom: 0.3px solid var(--celadon);
+  }
+
+  .specimen-text {}
+
+  .specimen-caption {
+    font-size: 7pt;
+    color: var(--stone);
+    margin-top: 2mm;
+  }
+
+  .weight-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+    margin-top: 4mm;
+  }
+
+  /* ════════════════════════════════
+     PAGE 4 — UI COMPONENTS
+  ════════════════════════════════ */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6mm;
+    margin-bottom: 8mm;
+  }
+
+  .broadcast-card {
+    padding: 4mm;
+    height: 38mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .broadcast-card.ivory-border { border: 0.5px solid var(--celadon); }
+
+  .card-label {
+    font-size: 6pt;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .card-title {
+    font-size: 12pt;
+    font-weight: 300;
+    margin-top: 1mm;
+  }
+
+  .card-sub {
+    font-size: 7pt;
+    font-weight: 400;
+    margin-top: 1mm;
+  }
+
+  .card-pill {
+    display: inline-block;
+    padding: 2mm 4mm;
+    font-size: 6pt;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    margin-top: auto;
+  }
+
+  .card-name {
+    font-size: 7pt;
+    color: var(--stone);
+    margin-top: 2mm;
+  }
+
+  .tone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+    margin-bottom: 6mm;
+  }
+
+  .tone-row {
+    display: flex;
+    gap: 4mm;
+  }
+
+  .tone-headline {
+    font-size: 8pt;
+    font-weight: 500;
+    color: var(--umber);
+    width: 38mm;
+    flex-shrink: 0;
+  }
+
+  .tone-desc {
+    font-size: 8pt;
+    color: var(--stone);
+  }
+
+  .notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+  }
+
+  .note-row {
+    font-size: 8pt;
+    color: var(--stone);
+    display: flex;
+    gap: 3mm;
+  }
+
+  .note-dash { color: var(--celadon); flex-shrink: 0; }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     PAGE 1 — COVER
+════════════════════════════════════════════ -->
+<div class="page cover">
+  <span class="page-label">BRAND PREVIEW / APRIL 2026</span>
+
+  <div class="page-content">
+    <div class="cover-title-block">
+      <div class="cover-the">The</div>
+      <div class="cover-blackout">Blackout</div>
+    </div>
+
+    <div class="cover-tagline">
+      A live literary broadcast platform for the 3pm football blackout.<br>
+      Real football writers shape the story. AI orchestrates the telling.
+    </div>
+
+    <div class="cover-rule"></div>
+
+    <div class="cover-body">
+      <p>Each weekend, a single match. A chosen narrative voice. Match events, club history, rivalry mythology and player storytelling woven together in real time — delivered as a live audiobook with AI-generated illustrations, shared simultaneously in a social room.</p>
+      <p>The game provides the structure.<br>The gaps provide the meaning.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="cover-domain" style="color: var(--forest); font-size: 8pt;">THE BLACKOUT</span>
+    <span class="right">BRAND PREVIEW / APRIL 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     PAGE 2 — COLOUR PALETTE
+════════════════════════════════════════════ -->
+<div class="page">
+  <span class="page-label">2 / 4</span>
+  <div class="page-content">
+    <h1 class="section-header">Colour Palette</h1>
+
+    <div class="swatches">
+      <div class="swatch-item">
+        <div class="swatch-chip" style="background: var(--umber);"></div>
+        <span class="swatch-name">Umber</span>
+        <span class="swatch-hex">#1F1A14</span>
+        <span class="swatch-role">Primary dark</span>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-chip ivory-border" style="background: var(--ivory);"></div>
+        <span class="swatch-name">Ivory</span>
+        <span class="swatch-hex">#FDFAF4</span>
+        <span class="swatch-role">Primary light</span>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-chip" style="background: var(--forest);"></div>
+        <span class="swatch-name">Forest</span>
+        <span class="swatch-hex">#3A5432</span>
+        <span class="swatch-role">Hero green</span>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-chip" style="background: var(--sage);"></div>
+        <span class="swatch-name">Sage</span>
+        <span class="swatch-hex">#8FAE80</span>
+        <span class="swatch-role">Mid green</span>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-chip ivory-border" style="background: var(--celadon);"></div>
+        <span class="swatch-name">Celadon</span>
+        <span class="swatch-hex">#DDE4DC</span>
+        <span class="swatch-role">Light accent</span>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-chip" style="background: var(--driftwood);"></div>
+        <span class="swatch-name">Driftwood</span>
+        <span class="swatch-hex">#9E8468</span>
+        <span class="swatch-role">Secondary text</span>
+      </div>
+      <div class="swatch-item">
+        <div class="swatch-chip" style="background: var(--stone);"></div>
+        <span class="swatch-name">Stone</span>
+        <span class="swatch-hex">#72726C</span>
+        <span class="swatch-role">Tertiary text</span>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+    <h2 class="subsection-title">Usage</h2>
+
+    <div class="usage-list">
+      <div class="usage-row">
+        <div class="usage-chip" style="background: var(--umber); color: var(--ivory);">Aa</div>
+        <div class="usage-text">
+          <span class="usage-label">Umber on Ivory</span>
+          <span class="usage-desc">Default light mode pairing</span>
+        </div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-chip ivory-border" style="background: var(--ivory); color: var(--umber);">Aa</div>
+        <div class="usage-text">
+          <span class="usage-label">Ivory on Umber</span>
+          <span class="usage-desc">Default dark mode pairing</span>
+        </div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-chip" style="background: var(--forest); color: var(--ivory);">Aa</div>
+        <div class="usage-text">
+          <span class="usage-label">Ivory on Forest</span>
+          <span class="usage-desc">Hero pairing — featured broadcasts, hero sections</span>
+        </div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-chip" style="background: var(--umber); color: var(--sage);">Aa</div>
+        <div class="usage-text">
+          <span class="usage-label">Sage on dark</span>
+          <span class="usage-desc">Accent text on dark backgrounds only</span>
+        </div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-chip ivory-border" style="background: var(--ivory); color: var(--forest);">Aa</div>
+        <div class="usage-text">
+          <span class="usage-label">Celadon</span>
+          <span class="usage-desc">Pills, tags, subtle fills on Ivory backgrounds</span>
+        </div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-chip ivory-border" style="background: var(--ivory); color: var(--driftwood);">Aa</div>
+        <div class="usage-text">
+          <span class="usage-label">Driftwood</span>
+          <span class="usage-desc">Secondary text — adds warmth without competing with greens</span>
+        </div>
+      </div>
+      <div class="usage-row">
+        <div class="usage-chip ivory-border" style="background: var(--ivory); color: var(--stone);">Aa</div>
+        <div class="usage-text">
+          <span class="usage-label">Stone</span>
+          <span class="usage-desc">Tertiary text — metadata, timestamps</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+    <h2 class="subsection-title">Logo Lockups</h2>
+
+    <div class="lockups">
+      <div class="lockup-item">
+        <div class="lockup-card ivory-border" style="background: var(--ivory);">
+          <div>
+            <div class="lockup-the" style="color: var(--driftwood);">The</div>
+            <div class="lockup-blackout" style="color: var(--umber);">Blackout</div>
+          </div>
+          <div class="lockup-domain" style="color: var(--driftwood);">LIVE FOOTBALL FICTION</div>
+        </div>
+        <div class="lockup-label">Primary / light</div>
+      </div>
+      <div class="lockup-item">
+        <div class="lockup-card" style="background: var(--forest);">
+          <div>
+            <div class="lockup-the" style="color: var(--celadon);">The</div>
+            <div class="lockup-blackout" style="color: var(--ivory);">Blackout</div>
+          </div>
+          <div class="lockup-domain" style="color: var(--celadon);">LIVE FOOTBALL FICTION</div>
+        </div>
+        <div class="lockup-label">Hero / forest</div>
+      </div>
+      <div class="lockup-item">
+        <div class="lockup-card" style="background: var(--umber);">
+          <div>
+            <div class="lockup-the" style="color: var(--driftwood);">The</div>
+            <div class="lockup-blackout" style="color: var(--ivory);">Blackout</div>
+          </div>
+          <div class="lockup-domain" style="color: var(--driftwood);">LIVE FOOTBALL FICTION</div>
+        </div>
+        <div class="lockup-label">Dark / umber</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>The Blackout Football Limited</span>
+    <span class="right">BRAND PREVIEW / APRIL 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     PAGE 3 — TYPOGRAPHY
+════════════════════════════════════════════ -->
+<div class="page">
+  <span class="page-label">3 / 4</span>
+  <div class="page-content">
+    <h1 class="section-header">Typography</h1>
+    <p class="type-subtitle">Typeface: DM Sans — three weights only</p>
+
+    <div class="specimen-list">
+      <div class="specimen-row">
+        <div class="specimen-text" style="font-size: 72pt; font-weight: 300; line-height: 1; letter-spacing: -0.04em; color: var(--umber);">Blackout</div>
+        <div class="specimen-caption">Display / 72pt, light weight, −0.04em tracking</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text" style="font-size: 28pt; font-weight: 300; line-height: 1.1; letter-spacing: -0.03em; color: var(--umber);">Liverpool vs Everton</div>
+        <div class="specimen-caption">Headline / 28pt, light weight, −0.03em tracking</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text" style="font-size: 14pt; font-weight: 400; line-height: 1.7; color: var(--umber);">The game provides the structure.</div>
+        <div class="specimen-caption">Body / 14pt, regular weight, 1.7 leading</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text" style="font-size: 8pt; font-weight: 500; letter-spacing: 0.08em; color: var(--umber);">NOW BROADCASTING / SATURDAY 3PM</div>
+        <div class="specimen-caption">Label / 8pt, medium weight, tracked uppercase</div>
+      </div>
+      <div class="specimen-row">
+        <div class="specimen-text" style="font-size: 9pt; font-weight: 400; color: var(--forest);">Live football fiction</div>
+        <div class="specimen-caption">Domain / 9pt, regular, forest colour</div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+    <h2 class="subsection-title">Weight reference</h2>
+
+    <div class="weight-list">
+      <div style="font-size: 10pt; font-weight: 300; color: var(--umber);">300 &nbsp; Light &nbsp; / &nbsp; Display, headlines, card titles</div>
+      <div style="font-size: 10pt; font-weight: 400; color: var(--umber);">400 &nbsp; Regular &nbsp; / &nbsp; Body text, supporting copy</div>
+      <div style="font-size: 10pt; font-weight: 500; color: var(--umber);">500 &nbsp; Medium &nbsp; / &nbsp; Labels, pills, UI controls, navigation</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>The Blackout Football Limited</span>
+    <span class="right">BRAND PREVIEW / APRIL 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     PAGE 4 — UI COMPONENTS
+════════════════════════════════════════════ -->
+<div class="page">
+  <span class="page-label">4 / 4</span>
+  <div class="page-content">
+    <h1 class="section-header">UI Components</h1>
+
+    <h2 class="subsection-title">Broadcast cards</h2>
+    <p style="font-size: 8pt; color: var(--stone); margin-bottom: 5mm;">The primary UI component. Three variants.</p>
+
+    <div class="cards-grid">
+      <div>
+        <div class="broadcast-card ivory-border" style="background: var(--ivory);">
+          <div>
+            <div class="card-label" style="color: var(--forest);">LIVE NOW</div>
+            <div class="card-title" style="color: var(--umber);">West Ham vs Leeds</div>
+            <div class="card-sub" style="color: var(--driftwood);">FA Cup / The Captain's Voice</div>
+          </div>
+          <div class="card-pill" style="background: var(--celadon); color: var(--forest);">Join room</div>
+        </div>
+        <div class="card-name">Light / primary</div>
+      </div>
+      <div>
+        <div class="broadcast-card" style="background: var(--forest);">
+          <div>
+            <div class="card-label" style="color: var(--celadon);">LIVE NOW</div>
+            <div class="card-title" style="color: var(--ivory);">West Ham vs Leeds</div>
+            <div class="card-sub" style="color: var(--celadon);">FA Cup / The Captain's Voice</div>
+          </div>
+          <div class="card-pill" style="background: var(--umber); color: var(--sage);">Join room</div>
+        </div>
+        <div class="card-name">Forest / hero</div>
+      </div>
+      <div>
+        <div class="broadcast-card" style="background: var(--umber);">
+          <div>
+            <div class="card-label" style="color: var(--sage);">LIVE NOW</div>
+            <div class="card-title" style="color: var(--ivory);">West Ham vs Leeds</div>
+            <div class="card-sub" style="color: var(--driftwood);">FA Cup / The Captain's Voice</div>
+          </div>
+          <div class="card-pill" style="background: var(--forest); color: var(--celadon);">Join room</div>
+        </div>
+        <div class="card-name">Dark / umber</div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+    <h2 class="subsection-title">Brand tone</h2>
+
+    <div class="tone-list">
+      <div class="tone-row">
+        <span class="tone-headline">Considered, not corporate.</span>
+        <span class="tone-desc">Every element earns its place.</span>
+      </div>
+      <div class="tone-row">
+        <span class="tone-headline">Literary, not academic.</span>
+        <span class="tone-desc">Warm and human, not cold and institutional.</span>
+      </div>
+      <div class="tone-row">
+        <span class="tone-headline">Quietly rebellious.</span>
+        <span class="tone-desc">Against the blackout, against generic sports design.</span>
+      </div>
+      <div class="tone-row">
+        <span class="tone-headline">Japandi register.</span>
+        <span class="tone-desc">Warm neutrals, natural greens, generous negative space.</span>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+    <h2 class="subsection-title">Notes for the designer</h2>
+
+    <div class="notes-list">
+      <div class="note-row"><span class="note-dash">—</span><span>Typeface is DM Sans (Google Fonts). Weights: 300 light, 400 regular, 500 medium.</span></div>
+      <div class="note-row"><span class="note-dash">—</span><span>All colours defined in docs/BRAND.md in the project repository.</span></div>
+      <div class="note-row"><span class="note-dash">—</span><span>Border radius: 10–12px for cards, 100px for pills. No shadows — depth via colour contrast only.</span></div>
+      <div class="note-row"><span class="note-dash">—</span><span>The forest card (Ivory on Forest) is the hero treatment for featured contexts.</span></div>
+      <div class="note-row"><span class="note-dash">—</span><span>Title splits "The" (small, driftwood) from "Blackout" (large, umber/ivory).</span></div>
+      <div class="note-row"><span class="note-dash">—</span><span>The wordmark can be paired with the descriptive line “Live football fiction”.</span></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>The Blackout Football Limited</span>
+    <span class="right">BRAND PREVIEW / APRIL 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

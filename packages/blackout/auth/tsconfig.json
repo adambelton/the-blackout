@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    // Emit `.js` so Node in prod can import the package at runtime
+    // (the compiled server runs `node dist/index.js` and can't resolve `.ts` files).
+    // No declaration emit — Better Auth's inferred return type
+    // references `zod/v4/core` internals that aren't stable across
+    // the .pnpm tree; TS2742 fires on declaration. Consumers get
+    // types from the source .ts files via the workspace link —
+    // `types` in package.json points at `index.ts`, TypeScript walks
+    // into the source directly.
+    "outDir": "dist"
+  },
+  "include": ["schema.ts", "factory.ts", "index.ts"]
+}
